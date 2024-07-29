@@ -1,0 +1,5 @@
+(1.) Hashing
+(2.)Encryption 
+(3.) josn web tokens 
+(4.)local storage
+
