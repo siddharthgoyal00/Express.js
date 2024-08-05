@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!-- here the req to the backend server is continues just like we search on amazon 
+     we type "ti" it starts giving the suggestion to search like tishirt etc basically
+    when you write t,i,s the inviduall request will be send for the one input box 
+    for example: - if we have input boxes to add 2 number then in the one input box
+    we write 12  and the 12 which will give the output of 24 how 
+    
+    request                           result
+    1                                    1
+    12                                   12
+    second input box
+    1                  addition logic     13
+    12                                    24           
+    that is the debouncing -->
+<script>
+    function debouncepopulateDiv(){
+       // delay the call to populate untill ive not been called for 100ms 
+       // and i hve been called once
+       let timeout;
+       clearTimeout(timeout);
+       timeout = setTimeout(function(){   // how to cancle a clock 
+           populateDiv()
+       },1000)
+       clearTimeout(timeout);
+    }
+
+    // when we call this debouncepopulateDiv start the clock for 1 sec\
+    // if within one second this function debouncepopulateDiv called stop the clock 
+    //and start the new clock
+    function populateDiv (){
+        const a = document.getElementById("firstNum").value;
+        const b = document.getElementById("secondNum").value;
+        //axios
+        fetch("https://sum-server.100xdevs.com/sum?a="+a+"&b="+b)
+             .then(function(response){
+                response.text()
+                   .then(function(ans){
+                    document.getElementById("finalSum").innerHTML = ans;
+                   })
+             });
+    }
+</script>
+<body>
+    <input oninput = "populateDiv()" id ="firstNum"  type="text" placeholder="enterNUM 1"></input> 
+</br>
+    <input oninput = "populateDiv()" id ="secondNum"  type="text" placeholder="enterNUM 2"></input>
+</br>
+    <div id="finalSum"></div>
+</body>
+</html>
