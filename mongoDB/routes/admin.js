@@ -16,11 +16,11 @@ router.post('/signup', async (req,res)=>{
         username: username,
         password: password
     })
-    .then(function(){ 
+
     res.json({
         msg: "admin created successfully"
     })
-    })
+    
     
 });
 
@@ -30,7 +30,7 @@ router.post('/courses', adminMiddleware, async (req,res)=>{
     const description = req.body.description;
     const imageLink = req.body.imageLink;
     const price = req.body.price;
-    //zod
+    
     const newCourse =await Course.create({
         title: title,
         description : description,
@@ -42,14 +42,14 @@ router.post('/courses', adminMiddleware, async (req,res)=>{
     })
 });
 
-router.get('/courses', adminMiddleware, (req,res)=> {
+router.get('/courses', adminMiddleware, async (req,res)=> {
     // implement fetching all courses logic
-    Course.find({})
-    .then(function(response){
+    const response = await Course.find({})
+   
         res.json({
             courses: response
         })
-    })
+    
 });
  
 
